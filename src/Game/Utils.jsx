@@ -27,3 +27,15 @@ export function  RandomSumIn (arr, max)  {
     }
     return sums[GenerateRandom(0, sums.length - 1)];
 }
+
+export function GetColour(status){
+    const colours = {
+        // status:  Colour
+        available: 'lightgray',
+        used: 'lightgreen',
+        wrong: 'lightcoral',
+        candidate: 'deepskyblue',
+    };
+
+    return colours[status];
+}
