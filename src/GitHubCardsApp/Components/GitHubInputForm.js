@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-
+/*
 export default function  GitHubInputFormFunc(props){
 
     const [state, setState] = React.useState({"userName": ""});
@@ -38,8 +38,8 @@ export default function  GitHubInputFormFunc(props){
     </form>
     );
 };
+*/
 
-/*
 export default class GitHubInputForm extends React.Component{
      
     constructor(props){
@@ -82,4 +82,4 @@ export default class GitHubInputForm extends React.Component{
             </form>
         );
     }
-}*/
+}

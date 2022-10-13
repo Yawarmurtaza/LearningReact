@@ -15,8 +15,11 @@ export default class StartMatch extends React.Component {
             "availableNumbers": CreateArray(1, 9),
 
             // numbers that can make up the total.
-            "candidiateNumbers": [2,8]            
+            "candidiateNumbers": []            
         };        
+
+        // we have to bind the method so that we can use state...
+        this.onNumberClick = this.onNumberClick.bind(this);
     }
 
     onNumberClick(number, status){
@@ -26,12 +29,17 @@ export default class StartMatch extends React.Component {
         }
 
         const newCandidates = this.state.candidiateNumbers.concat(number);
+        if(SumArray(newCandidates) !== this.state.starCount){
+            // this.setState({"candidiateNumbers" : newCandidates});
+        }else{
+
+        }
+
 
     }
 
     numberStatus(number){
-        console.log(this.state.starCount);
-
+        
         if(!this.state.availableNumbers.includes(number)){
             return "used";
         }

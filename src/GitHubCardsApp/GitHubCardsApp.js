@@ -4,7 +4,7 @@ import GitHubCardListFunc from "./Components/GitHubCardList";
 import GitHubInputForm from "./Components/GitHubInputForm";
 // card
 // list of cards
-
+/*
 export default function GitHubCardsAppFunc(){
     const titleString = "The GitHub Cards App";
 
@@ -23,8 +23,8 @@ export default function GitHubCardsAppFunc(){
         <GitHubCardListFunc profiles={state.profiles}/>
     </>
     );
-}
-/*
+}*/
+
 export default class GitHubCardsApp extends React.Component{   
     titleString = "The GitHub Cards App";
 
@@ -58,4 +58,4 @@ export default class GitHubCardsApp extends React.Component{
         </>
     );
  }   
-}*/
+}
