@@ -7,8 +7,7 @@ export default class Digit extends React.Component {
         super(props);
     }
 
-    DigitClickHandler(number, status){
-        
+    DigitClickHandler(number, status){        
         this.props.onNumberClick(number, status);
     }
     

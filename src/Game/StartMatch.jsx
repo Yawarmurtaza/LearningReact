@@ -15,7 +15,7 @@ export default class StartMatch extends React.Component {
             "availableNumbers": CreateArray(1, 9),
 
             // numbers that can make up the total.
-            "candidiateNumbers": []            
+            "candidiateNumbers": [2,5]            
         };        
 
         // we have to bind the method so that we can use state...
@@ -30,7 +30,7 @@ export default class StartMatch extends React.Component {
 
         const newCandidates = this.state.candidiateNumbers.concat(number);
         if(SumArray(newCandidates) !== this.state.starCount){
-            // this.setState({"candidiateNumbers" : newCandidates});
+            this.setState({"candidiateNumbers" : newCandidates});
         }else{
 
         }
