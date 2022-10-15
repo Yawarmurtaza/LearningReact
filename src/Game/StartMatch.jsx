@@ -4,6 +4,7 @@ import DisplayStars from "./DisplayStars";
 import "./Game.css";
 import { GenerateRandom, CreateArray, SumArray, RandomSumIn } from "./Utils";
 
+// state management works in function component that is setState doent work in clickHandler.
 export default function StartMatch() {
     const totalNumbers = 9;
     const [starCount, setStarCount] = useState(GenerateRandom(1, totalNumbers));
@@ -28,9 +29,7 @@ export default function StartMatch() {
             return;
         }
 
-         const newCandidates = status === "available" ? candidiateNumbers.concat(number) : candidiateNumbers.filter(cn => cn != number);
-        //const newCandidates = this.setState({ "candidiateNumbers": [...this.state.candidiateNumbers, number] });
-
+        const newCandidates = status === "available" ? candidiateNumbers.concat(number) : candidiateNumbers.filter(cn => cn != number);
         if (SumArray(newCandidates) !== starCount) {           
             setCandidiateNumbers(newCandidates);
         } else {

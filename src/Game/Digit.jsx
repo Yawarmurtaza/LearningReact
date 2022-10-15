@@ -7,13 +7,11 @@ export default function Digit(props) {
         props.onNumberClick(number, status);
     }
 
-
     return (
         <button
             className="number"
-            onClick={() => props.onNumberClick(props.digit, props.numberStatus)} // notice here the call to the function passed in from parent component.
-            style={{ background: GetColour(props.numberStatus) }}
-        >
+            onClick={() => DigitClickHandler(props.digit, props.numberStatus)} // notice here the call to the function passed in from parent component.
+            style={{ background: GetColour(props.numberStatus) }}>
             {props.digit}
         </button>
     );
