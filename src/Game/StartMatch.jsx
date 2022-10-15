@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Digit from "./Digit";
 import DisplayStars from "./DisplayStars";
 import "./Game.css";
+import LeftComponent from "./LeftComponent";
 import { GenerateRandom, CreateArray, SumArray, RandomSumIn } from "./Utils";
 
 // state management works in function component that is setState doent work in clickHandler.
@@ -10,6 +11,7 @@ export default function StartMatch() {
     const [starCount, setStarCount] = useState(GenerateRandom(1, totalNumbers));
     const [availableNumbers, setAvailableNumbers] = useState(CreateArray(1, totalNumbers));
     const [candidiateNumbers, setCandidiateNumbers] = useState([]);
+    const isGameOver = availableNumbers.length == 0;
 
     function numberStatus(number) {
         if (!availableNumbers.includes(number)) {
@@ -25,11 +27,16 @@ export default function StartMatch() {
 
     function onNumberClick(number, status) {        
 
+        // used = green
         if (status === "used") {
             return;
         }
 
-        const newCandidates = status === "available" ? candidiateNumbers.concat(number) : candidiateNumbers.filter(cn => cn != number);
+        // available = gray
+        const newCandidates = status === "available" ? 
+        candidiateNumbers.concat(number) : // if given number is available then add this in candidateNumbers array and return a new array newCandidates.
+        candidiateNumbers.filter(cn => cn != number); // if given number is not available then this number should be removed from candidates array. This is so that the number can be made available. 
+
         if (SumArray(newCandidates) !== starCount) {           
             setCandidiateNumbers(newCandidates);
         } else {
@@ -41,6 +48,12 @@ export default function StartMatch() {
         }
     }
 
+    function resetGame(){
+        setStarCount(GenerateRandom(1, totalNumbers));
+        setAvailableNumbers(CreateArray(1, totalNumbers));
+        setCandidiateNumbers([]);
+    }
+
     return (
         <div className="game">
             <div className="help">
@@ -49,7 +62,7 @@ export default function StartMatch() {
 
             <div className="body">
                 <div className="left">
-                    <DisplayStars totalStars={starCount} />
+                    <LeftComponent totalStars={starCount} isGameOver={isGameOver} resetGame={resetGame}/>
                 </div>
                 <div className="right">
                     {
