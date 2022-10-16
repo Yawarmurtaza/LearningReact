@@ -5,7 +5,7 @@ import LeftComponent from "./LeftComponent";
 import { GenerateRandom, CreateArray, SumArray, RandomSumIn } from "./Utils";
 
 // state management works in function component that is setState doent work in clickHandler.
-export default function StartMatch() {        
+export default function Game(props) {
     const totalNumbers = 9;
     var counter = 0;
     const [secondsLeft, setSecondsLeft] = useState(10);
@@ -16,8 +16,9 @@ export default function StartMatch() {
 
     // holds the numbers that user clicks. This array is cleared (emptyed) once sum of this array matched the star count.
     const [candidiateNumbers, setCandidiateNumbers] = useState([]);
-    const isGameOver = availableNumbers.length === 0;
-        
+    const gameStatus = availableNumbers.length === 0 ? "won" : secondsLeft === 0 ? "lost" : "active";
+
+
     function GetNumberStatus(number) {
         var status = "";
         if (!availableNumbers.includes(number)) {
@@ -34,7 +35,7 @@ export default function StartMatch() {
                 status = "available"; // gray
             }
         }
-        console.log("[" + counter++ + "]GetNumberStatus [exit]: number=" + number + " Status=" + status);
+        // console.log("[" + counter++ + "]GetNumberStatus [exit]: number=" + number + " Status=" + status);
         return status;
     }
 
@@ -45,7 +46,7 @@ export default function StartMatch() {
     function onNumberClick(number, status) {
 
         // used = green
-        if (status === "used") {
+        if (gameStatus !== "active" || status === "used") {
             return;
         }
 
@@ -78,17 +79,28 @@ export default function StartMatch() {
         }
     }
 
+    /*
     function resetGame() {
+        
         setStarCount(GenerateRandom(1, totalNumbers));
         setAvailableNumbers(CreateArray(1, totalNumbers));
         setCandidiateNumbers([]);
+        setSecondsLeft(10);
     }
+    */
+    useEffect(() => {
+        // every time the owner component (StartMatch in this case) renders itself, this method is triggered by useEffect. Each time we click on a number, (this method) useEffect will be executed.
+        // setting state in this method will cause owner component(StartMatch) to render, useEffect will continue to run as setSecondsLeft method will update the state. This is a loop!!!
+        // console.log("useEffect method has triggered!")
+        var timerId = 0;
+        if (secondsLeft > 0 && gameStatus === "active") {
+            timerId = setTimeout(() => {
+                setSecondsLeft(secondsLeft - 1);
+            }, 1000); // every second, StartMatch component renders!
+        }
 
-    // useEffect(() => {
-    //     setTimeout(() => {
-    //         setSecondsLeft(secondsLeft - 1);            
-    //     }, 1000);
-    // });
+        return () => clearTimeout(timerId);
+    });
 
     return (
         <div className="game">
@@ -98,7 +110,7 @@ export default function StartMatch() {
 
             <div className="body">
                 <div className="left">
-                    <LeftComponent totalStars={starCount} isGameOver={isGameOver} resetGame={resetGame} />
+                    <LeftComponent totalStars={starCount} gameStatus={gameStatus} startNewGame={props.startNewGame} />
                 </div>
                 <div className="right">
                     {

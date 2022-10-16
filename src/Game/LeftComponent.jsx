@@ -6,11 +6,10 @@ export default function LeftComponent(props) {
   return (
     <>
       {
-      props.isGameOver ? (
-        <PlayAgain resetGame={props.resetGame}/>
-      ) : (
-        <DisplayStars totalStars={props.totalStars} />
-      )}
+        props.gameStatus !== "active" ?
+          <PlayAgain startNewGame={props.startNewGame} gameStatus={props.gameStatus} /> : // when the game is not active.
+          <DisplayStars totalStars={props.totalStars} /> // when the game is active.
+      }
     </>
   );
 }
