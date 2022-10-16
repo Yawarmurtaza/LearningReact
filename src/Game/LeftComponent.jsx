@@ -5,7 +5,8 @@ import PlayAgain from "./PlayAgain";
 export default function LeftComponent(props) {
   return (
     <>
-      {props.isGameOver ? (
+      {
+      props.isGameOver ? (
         <PlayAgain resetGame={props.resetGame}/>
       ) : (
         <DisplayStars totalStars={props.totalStars} />
